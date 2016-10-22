@@ -1,6 +1,7 @@
 project(imgtools)
 
-include_directories(include)
+include_directories(include
+        ${ijg_SOURCE_DIR}/src/lib/jpegb)
 
 set(IHEAD_SOURCE_FILES
         src/lib/ihead/getcomp.c
@@ -76,12 +77,16 @@ target_link_libraries(libwsq
         libjpegl)
 
 #[[need to build libimage static because of
+missing implementation of the function
 
 /* provided by application */
 extern void print_usage(char *);
 
-in parsargs.h]]
+defined in include/parsargs.h]]
 add_library(libimage STATIC ${IMAGE_SOURCE_FILES})
+
+#[[needed to inherit ijg interface properties
+and to pass them through]]
 target_link_libraries(libimage
         libcommonnbis
         libihead

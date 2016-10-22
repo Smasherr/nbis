@@ -1,7 +1,6 @@
 project(NBIS)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -w -ansi -Wall")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include_directories(commonnbis/include)
 
