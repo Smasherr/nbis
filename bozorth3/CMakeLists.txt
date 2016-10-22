@@ -11,7 +11,8 @@ set(LIB_SOURCE_FILES
         src/lib/bozorth3/bz_sort.c)
 
 
-add_library(libbozorth3 ${LIB_SOURCE_FILES})
+add_library(libbozorth3 STATIC ${LIB_SOURCE_FILES})
 
-add_executable(bozorth3 src/bin/bozorth3/bozorth3.c)
+add_executable(bozorth3 src/bin/bozorth3/bozorth3.c
+        src/bin/bozorth3/usage.c)
 target_link_libraries(bozorth3 libbozorth3)
