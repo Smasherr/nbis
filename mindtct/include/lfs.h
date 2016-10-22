@@ -66,7 +66,16 @@ of the software.
 
 #include <math.h>
 #include <stdio.h>
-#include <an2k.h>  /* Needed by to_type9.c */
+/*#include <an2k.h>*/  /* Needed by to_type9.c */
+#include <stdlib.h>
+#include <string.h>
+
+
+
+/*************************************************************************/
+/*        FROM an2k.h                                                    */
+/*************************************************************************/
+#define MM_PER_INCH                 25.4
 
 /*************************************************************************/
 /*        OUTPUT FILE EXTENSIONS                                         */
@@ -1204,15 +1213,17 @@ extern void bubble_sort_double_dec_2(double *, int *,  const int);
 extern void bubble_sort_int_inc(int *, const int);
 
 /* to_type9.c */
+/*
 extern int minutiae2type_9(RECORD **, const int, MINUTIAE *, const int,
                   const int, const double);
 extern int mintiae2field_12(FIELD **, MINUTIAE *, const int, const int,
                   const double);
+*/
 
 /* update.c */
-extern int update_ANSI_NIST_lfs_results(ANSI_NIST *, MINUTIAE *,
+/*extern int update_ANSI_NIST_lfs_results(ANSI_NIST *, MINUTIAE *,
                                 unsigned char *, const int, const int,
-                                const int, const double, const int, const int);
+                                const int, const double, const int, const int);*/
 
 /* util.c */
 extern int maxv(const int *, const int);

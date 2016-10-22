@@ -187,7 +187,7 @@ unsigned char **data;
 int *width,*height,*depth;
 {
    FILE *fp;
-   IHEAD *ihead;
+   /*IHEAD *ihead;*/
    int outbytes, comp, filesize, complen, n;
    unsigned char *indata, *outdata;
 
@@ -198,7 +198,7 @@ int *width,*height,*depth;
 
    /* read in the image header */
    *head = readihdr(fp);
-   ihead = *head;
+   /*ihead = *head;*/
 
    n = sscanf((*head)->compress,"%d",&comp);
    if (n != 1)

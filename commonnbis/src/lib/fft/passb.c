@@ -62,7 +62,7 @@ of the software.
 	    i_1, i_2, i_3;
 
     /* Local variables */
-    static int idij, idlj, idot, ipph, i, j, k, l, jc, lc, ik, nt, idj, 
+    static int idij, idlj, idot, ipph, i, j, k, l, jc, lc, ik/*, nt*/, idj,
 	    idl, inc, idp;
     static real wai, war;
     static int ipp2;
@@ -90,7 +90,7 @@ of the software.
 
     /* Function Body */
     idot = *ido / 2;
-    nt = *ip * *idl1;
+    /*nt = *ip * *idl1;*/
     ipp2 = *ip + 2;
     ipph = (*ip + 1) / 2;
     idp = *ip * *ido;

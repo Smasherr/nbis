@@ -74,7 +74,7 @@ void writeihdr(FILE *fp, IHEAD *ihead)
    for (i = 0; i < SHORT_CHARS; i++)
       lenstr[i] = '\0';
    /* creates a string from of header size */
-   sprintf(lenstr,"%d",sizeof(IHEAD));
+   sprintf(lenstr,"%d",(int)sizeof(IHEAD));
    /* writes the length string in headerto the file */
    fwrite(lenstr,sizeof(char),SHORT_CHARS,fp);
    /* writes the given header to the file */

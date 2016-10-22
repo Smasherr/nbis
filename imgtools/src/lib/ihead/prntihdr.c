@@ -71,7 +71,7 @@ void printihdr(IHEAD *head, FILE *fp)
    fprintf(fp,"IMAGE FILE HEADER\n");
    fprintf(fp,"~~~~~~~~~~~~~~~~~\n");
    fprintf(fp,"Identity\t:  %s\n", head->id);
-   fprintf(fp,"Header Size\t:  %d (bytes)\n",sizeof(IHEAD));
+   fprintf(fp,"Header Size\t:  %d (bytes)\n",(int)sizeof(IHEAD));
    fprintf(fp,"Date Created\t:  %s\n", head->created);
    fprintf(fp,"Width\t\t:  %s (pixels)\n",head->width);
    fprintf(fp,"Height\t\t:  %s (pixels)\n",head->height);

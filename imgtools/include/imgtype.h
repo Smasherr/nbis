@@ -55,7 +55,7 @@ of the software.
 #include <jpegb.h>
 #include <jpegl.h>
 #include <ihead.h>
-#include <an2k.h>
+/*#include <an2k.h>*/
 #include <dataio.h>
 #include <computil.h>
 #ifdef __NBIS_JASPER__

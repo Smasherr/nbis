@@ -79,7 +79,7 @@ int image_type(int *img_type, unsigned char *idata, const int ilen)
    unsigned short marker;
    unsigned char *cbufptr, *ebufptr;
    char ihdr_size[SHORT_CHARS];
-   unsigned char header[8];
+   /*unsigned char header[8];*/
 
    cbufptr = idata;
    ebufptr = idata + ilen;
@@ -124,14 +124,14 @@ int image_type(int *img_type, unsigned char *idata, const int ilen)
 #endif
 
 
-   ret = is_ANSI_NIST(idata, ilen);
-   /* if system error */
+/*   ret = is_ANSI_NIST(idata, ilen);
+   *//* if system error *//*
    if(ret < 0)
       return(ret);
    if(ret == TRUE){
       *img_type = ANSI_NIST_IMG;
       return(0);
-   }
+   }*/
 
    /* Otherwise, image type is UNKNOWN ... */
    *img_type = UNKNOWN_IMG;

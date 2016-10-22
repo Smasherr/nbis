@@ -192,8 +192,9 @@ typedef struct sheader {
    unsigned char Ahl;
 } SCN_HEADER;
 
+int debug;
+
 /* GLOBAL VARIABLES */
-extern int debug;
 
 /* encoder.c */
 extern int jpegl_encode_mem(unsigned char **, int *, IMG_DAT *, char *);

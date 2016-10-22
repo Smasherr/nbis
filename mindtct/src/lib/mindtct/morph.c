@@ -86,29 +86,28 @@ of the software.
       out       - contains to the resulting eroded image
 **************************************************************************/
 void erode_charimage_2(unsigned char *inp, unsigned char *out,
-                     const int iw, const int ih)
-{
-   int row, col;
-   unsigned char *itr = inp, *otr = out;
- 
-   memcpy(out, inp, iw*ih);
- 
-   /* for true pixels. kill pixel if there is at least one false neighbor */
-   for ( row = 0 ; row < ih ; row++ )
-      for ( col = 0 ; col < iw ; col++ )
-      {  
-         if (*itr)      /* erode only operates on true pixels */
-         {
-            /* more efficient with C's left to right evaluation of     */
-            /* conjuctions. E N S functions not executed if W is false */
-            if (!(get_west8_2 ((char *)itr, col        , 1 ) &&
-                  get_east8_2 ((char *)itr, col, iw    , 1 ) &&
-                  get_north8_2((char *)itr, row, iw    , 1 ) &&
-                  get_south8_2((char *)itr, row, iw, ih, 1)))
-               *otr = 0;
-         }
-         itr++ ; otr++;
-      }  
+                       const int iw, const int ih) {
+    int row, col;
+    unsigned char *itr = inp, *otr = out;
+
+    memcpy(out, inp, iw * ih);
+
+    /* for true pixels. kill pixel if there is at least one false neighbor */
+    for (row = 0; row < ih; row++)
+        for (col = 0; col < iw; col++) {
+            if (*itr)      /* erode only operates on true pixels */
+            {
+                /* more efficient with C's left to right evaluation of     */
+                /* conjuctions. E N S functions not executed if W is false */
+                if (!(get_west8_2((char *) itr, col, 1) &&
+                      get_east8_2((char *) itr, col, iw, 1) &&
+                      get_north8_2((char *) itr, row, iw, 1) &&
+                      get_south8_2((char *) itr, row, iw, ih, 1)))
+                    *otr = 0;
+            }
+            itr++;
+            otr++;
+        }
 }
 
 /*************************************************************************
@@ -126,29 +125,28 @@ void erode_charimage_2(unsigned char *inp, unsigned char *out,
       out       - contains to the resulting dilated image
 **************************************************************************/
 void dilate_charimage_2(unsigned char *inp, unsigned char *out,
-                      const int iw, const int ih)
-{
-   int row, col;
-   unsigned char *itr = inp, *otr = out;
- 
-   memcpy(out, inp, iw*ih);
- 
-   /* for all pixels. set pixel if there is at least one true neighbor */
-   for ( row = 0 ; row < ih ; row++ )
-      for ( col = 0 ; col < iw ; col++ )
-      {  
-         if (!*itr)     /* pixel is already true, neighbors irrelevant */
-         {
-            /* more efficient with C's left to right evaluation of     */
-            /* conjuctions. E N S functions not executed if W is false */
-            if (get_west8_2 ((char *)itr, col        , 0) ||
-                get_east8_2 ((char *)itr, col, iw    , 0) ||
-                get_north8_2((char *)itr, row, iw    , 0) ||
-                get_south8_2((char *)itr, row, iw, ih, 0))
-               *otr = 1;
-         }
-         itr++ ; otr++;
-      }  
+                        const int iw, const int ih) {
+    int row, col;
+    unsigned char *itr = inp, *otr = out;
+
+    memcpy(out, inp, iw * ih);
+
+    /* for all pixels. set pixel if there is at least one true neighbor */
+    for (row = 0; row < ih; row++)
+        for (col = 0; col < iw; col++) {
+            if (!*itr)     /* pixel is already true, neighbors irrelevant */
+            {
+                /* more efficient with C's left to right evaluation of     */
+                /* conjuctions. E N S functions not executed if W is false */
+                if (get_west8_2((char *) itr, col, 0) ||
+                    get_east8_2((char *) itr, col, iw, 0) ||
+                    get_north8_2((char *) itr, row, iw, 0) ||
+                    get_south8_2((char *) itr, row, iw, ih, 0))
+                    *otr = 1;
+            }
+            itr++;
+            otr++;
+        }
 }
 
 /*************************************************************************
@@ -168,12 +166,11 @@ void dilate_charimage_2(unsigned char *inp, unsigned char *out,
       Pixel     - otherwise, value of neighboring pixel
 **************************************************************************/
 char get_south8_2(char *ptr, const int row, const int iw, const int ih,
-                  const int failcode)
-{
-   if (row >= ih-1) /* catch case where image is undefined southwards   */
-      return failcode; /* use plane geometry and return code.           */
+                  const int failcode) {
+    if (row >= ih - 1) /* catch case where image is undefined southwards   */
+        return failcode; /* use plane geometry and return code.           */
 
-      return *(ptr+iw);
+    return *(ptr + iw);
 }
 
 /*************************************************************************
@@ -192,12 +189,11 @@ char get_south8_2(char *ptr, const int row, const int iw, const int ih,
       Pixel     - otherwise, value of neighboring pixel
 **************************************************************************/
 char get_north8_2(char *ptr, const int row, const int iw,
-                  const int failcode)
-{
-   if (row < 1)     /* catch case where image is undefined northwards   */
-      return failcode; /* use plane geometry and return code.           */
+                  const int failcode) {
+    if (row < 1)     /* catch case where image is undefined northwards   */
+        return failcode; /* use plane geometry and return code.           */
 
-      return *(ptr-iw);
+    return *(ptr - iw);
 }
 
 /*************************************************************************
@@ -216,12 +212,11 @@ char get_north8_2(char *ptr, const int row, const int iw,
       Pixel     - otherwise, value of neighboring pixel
 **************************************************************************/
 char get_east8_2(char *ptr, const int col, const int iw,
-                 const int failcode)
-{
-   if (col >= iw-1) /* catch case where image is undefined eastwards    */
-      return failcode; /* use plane geometry and return code.           */
+                 const int failcode) {
+    if (col >= iw - 1) /* catch case where image is undefined eastwards    */
+        return failcode; /* use plane geometry and return code.           */
 
-      return *(ptr+ 1);
+    return *(ptr + 1);
 }
 
 /*************************************************************************
@@ -238,10 +233,9 @@ char get_east8_2(char *ptr, const int col, const int iw,
                   (outside of image boundaries)
       Pixel     - otherwise, value of neighboring pixel
 **************************************************************************/
-char get_west8_2(char *ptr, const int col, const int failcode)
-{
-   if (col < 1)     /* catch case where image is undefined westwards     */
-      return failcode; /* use plane geometry and return code.            */
+char get_west8_2(char *ptr, const int col, const int failcode) {
+    if (col < 1)     /* catch case where image is undefined westwards     */
+        return failcode; /* use plane geometry and return code.            */
 
-      return *(ptr- 1);
+    return *(ptr - 1);
 }

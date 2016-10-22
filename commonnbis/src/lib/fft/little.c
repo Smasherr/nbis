@@ -1,4 +1,4 @@
-/*******************************************************************************
+    /*******************************************************************************
 
 License: 
 This software and/or related materials was developed at the National Institute
@@ -43,51 +43,73 @@ of the software.
 
 
 /***********************************************************************
-      LIBRARY: UTIL - General Purpose Utility Routines
+      LIBRARY: PCASYS_UTILS - Pattern Classification System Utils
 
-      FILE:    TICKS.C
-      AUTHOR:  JAMES BLUE
-      DATE:    11/13/1990
+      FILE:    LITTLE.C
+      AUTHORS: Craig Watson
+               G. T. Candela
+      DATE:    1995
+      UPDATED: 04/20/2005 by MDG
+               03/02/2007 by Kenneth Ko
 
-      Contains routines responsible for accumulating the number of clock
-      cycles (ticks) used by a process.
+      Utility routines for PCASYS.
 
       ROUTINES:
-#cat: ticks - returns the number of clock cycles (ticks) used by a process.
-#cat:
-#cat: ticksPerSec - returns the system definition for HZ, where 1/HZ seconds
-#cat:               is a tick (HZ = 60).
+#cat: creat_ch - tries to creat a file
+#cat: dptr2ptr_uchar - converts [][] into *
+#cat: erode - erodes a raster
+#cat: exists - finds out whether a file exists
+#cat: fopen_ch - tries to fopen a file
+#cat: fopen_noclobber - tries to fopen a file for writing, unless it exists
+#cat: get_datadir - tries to find the pcasys data directory
+#cat: isverbose - finds out whether the verbosity is on
+#cat: lastcomp - finds last component of a pathname
+#cat: linecount - counts the lines in a file
+#cat: linreg - linear regression
+#cat: malloc_ch - tries to malloc a buffer
+#cat: open_read_ch - tries to open a file for reading
+#cat: rcfill - fills holes in the rows and cols of a raster
+#cat: rsblobs - removes small blobs from a raster
+#cat: setverbose - sets the verbosity
+#cat: sleepity - sleep, or wait for user to hit return key
+#cat: summary - computes and writes summary info for a test run
+#cat: tilde_filename - changes ~/string to home-dir/string
+#cat: usage_func - for use by the "usage" macro
+#cat: Usage_func - for use by the "Usage" macro
+#cat: write_ihdr_std - writes ihdr file with many "standard" fields
 
 ***********************************************************************/
+
+#include <stdio.h>
+/*#include <time.h>
+#include <unistd.h>*/
+#include <stdlib.h>
+/*#include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>*/
+#include "little.h"
+/*#include <findblob.h>
+#include <ihead.h>*/
+#include <img_io.h>
+#include <memalloc.h>
+#include <util.h>
+/*#include <fixup.h>*/
 #ifndef __MSYS__
-#include <sys/times.h>
+#include <libgen.h>
 #endif
-#include <sys/param.h>
-#include <time.h>
-#include <unistd.h>
 
-/* ticks 13-Nov-90 15:41
- *		Get number of ticks used by process.
- */
-clock_t 
-ticks(void)
+/*******************************************************************/
+
+/* Tries a malloc; calls fatalerr in case of failure */
+
+char *malloc_ch(const int nbytes)
 {
-	struct tms buff;
+  char *p, str[100];
 
-#ifndef __MSYS__
-	times(&buff);
-#endif
-	return buff.tms_utime;
+  if(!(p = malloc(nbytes))) {
+    sprintf(str, "malloc of %d bytes failed", nbytes);
+    fatalerr("malloc_ch", str, NULL);
+  }
+  return p;
 }
-
-
-/* ticksPerSec 13-Nov-90 15:41
- *		Get number of ticks per second reported by times().
- */
-int
-ticksPerSec(void)
-{
-	return (int)sysconf(_SC_CLK_TCK);
-}
-

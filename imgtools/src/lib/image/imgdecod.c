@@ -101,35 +101,35 @@ int read_and_decode_grayscale_image(char *ifile, int *oimg_type,
    int w, h, d, ppi;
    int intrlvflag;
    int hor_sampfctr[MAX_CMPNTS], vrt_sampfctr[MAX_CMPNTS], n_cmpnts;
-   ANSI_NIST *ansi_nist;
+   /*ANSI_NIST *ansi_nist;
    RECORD *imgrecord;
    int img_idc, img_imp, imgrecord_i;
-   double ppmm;
+   double ppmm;*/
 
    *odata = (unsigned char *)NULL;
    *olen = 0;
 
    /* Is input image an ANSI_NIST file?*/
-   ret = is_ANSI_NIST_file(ifile);
-   /* If system error ... */
+   /*ret = is_ANSI_NIST_file(ifile);
+   *//* If system error ... *//*
    if(ret < 0)
       return(ret);
-   /* YES, image is ANSI_NIST */
+   *//* YES, image is ANSI_NIST *//*
    if(ret == TRUE){
-      /* Read the ANSI/NIST file into memory. */
+      *//* Read the ANSI/NIST file into memory. *//*
       if((ret = read_ANSI_NIST_file(ifile, &ansi_nist)))
          return(ret);
 
-      /* Get first grayscale fingerprint record in ansi/nist file. */
+      *//* Get first grayscale fingerprint record in ansi/nist file. *//*
       ret = get_first_grayprint(&idata, &w, &h, &d,
                                 &ppmm, &img_idc, &img_imp,
                                 &imgrecord, &imgrecord_i, ansi_nist);
-      /* If error ... */
+      *//* If error ... *//*
       if(ret < 0){
          free_ANSI_NIST(ansi_nist);
          return(ret);
       }
-      /* If grayscale fingerprint not found ... */
+      *//* If grayscale fingerprint not found ... *//*
       if(!ret){
          fprintf(stderr, "ERROR : read_and_decode_grayscale_image : ");
          fprintf(stderr, "grayscale image record not found in %s\n", ifile);
@@ -141,9 +141,9 @@ int read_and_decode_grayscale_image(char *ifile, int *oimg_type,
       img_type = ANSI_NIST_IMG;
       ilen = w * h;
       ppi = sround(ppmm * MM_PER_INCH);
-   }
+   }*/
    /* Image is not ANSI_NIST ... */
-   else {
+   /*else {*/
 
       /* Read in and decode image file. */
       if((ret = read_and_decode_image(ifile, &img_type, &idata, &ilen,
@@ -169,7 +169,7 @@ int read_and_decode_grayscale_image(char *ifile, int *oimg_type,
               ifile, d);
          return(-4);
       }
-   }
+   /*}*/
 
    *oimg_type = img_type;
    *odata = idata;

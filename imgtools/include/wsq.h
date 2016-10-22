@@ -178,7 +178,7 @@ typedef struct header_frm {
    unsigned char white;
    unsigned short width;
    unsigned short height;
-   float m_shift; 
+   float m_shift;
    float r_scale;
    unsigned char wsq_encoder;
    unsigned short software;
@@ -208,7 +208,7 @@ extern int wsq_cropcoeff_mem(unsigned char **, int *, int *, int *, int, int,
                  int *, int *);
 extern int wsq_huffcode_mem(unsigned char *, int *, short *, int, int,
                  unsigned char *, const int, const int, const int);
-extern int wsq_dehuff_mem(short **, int *, int *, double *, double *, 
+extern int wsq_dehuff_mem(short **, int *, int *, double *, double *,
                  int *, int *, unsigned char *, const int ilen);
 extern int read_wsq_frame_header(unsigned char *, const int, int *, int *,
 				 double *, double *);

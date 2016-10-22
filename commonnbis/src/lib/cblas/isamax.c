@@ -61,7 +61,7 @@ int isamax_(int *n, real *sx, int *incx)
 
 
     /* System generated locals */
-    int ret_val, i__1;
+    int ret_val/*, i__1*/;
     real r__1;
 
     /* Local variables */
@@ -98,7 +98,7 @@ int isamax_(int *n, real *sx, int *incx)
     ix = 1;
     smax = dabs(SX(1));
     ix += *incx;
-    i__1 = *n;
+    /*i__1 = *n;*/
     for (i = 2; i <= *n; ++i) {
 	if ((r__1 = SX(ix), dabs(r__1)) <= smax) {
 	    goto L5;
@@ -115,7 +115,7 @@ L5:
 
 L20:
     smax = dabs(SX(1));
-    i__1 = *n;
+    /*i__1 = *n;*/
     for (i = 2; i <= *n; ++i) {
 	if ((r__1 = SX(i), dabs(r__1)) <= smax) {
 	    goto L30;

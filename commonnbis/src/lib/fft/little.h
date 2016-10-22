@@ -41,105 +41,41 @@ of the software.
 
 *******************************************************************************/
 
+ 
+#ifndef _LITTLE_H
+#define _LITTLE_H
 
-/*
-* ======================================================================
-* NIST Guide to Available Math Software.
-* Source for module SAXPY.C from package CBLAS.
-* Retrieved from NETLIB on Tue Mar 14 10:55:47 2000.
-* ======================================================================
-*/
+/* Declarations of those functions in src/lib/utils/little.c with
+non-int return values (including, void return value).  Stdio.h is
+needed for FILE. */
 
-/*  -- translated by f2c (version 19940927).
-   You must link the resulting object file with the libraries:
-	-lf2c -lm   (in that order)
-*/
+#define INSTALL_DIR "/cygdrive/d/git/nbis"
+#define INSTALL_DATA_DIR "/cygdrive/d/git/nbis/build/nbis"
+#define INSTALL_NBIS_DIR "/cygdrive/d/git"
 
-#include <f2c.h>
+extern int creat_ch(char *);
+extern void dptr2ptr_uchar(unsigned char **, unsigned char **, const int,
+                 const int);
+extern void erode(unsigned char *, const int, const int);
+extern int exists(char *);
+extern FILE *fopen_ch(char *, char *);
+extern FILE * fopen_noclobber(char *filename);
+extern char *get_datadir(void);
+extern int isverbose(void);
+extern char *lastcomp(char *);
+extern int linecount(char *);
+extern int linreg(int *, int *, const int, float *, float *);
+extern char *malloc_ch(const int);
+extern int open_read_ch(char *);
+extern void rcfill(unsigned char *, const int, const int);
+extern void rsblobs(unsigned char *, const int, const int);
+extern void setverbose(const int verbose);
+extern void sleepity(const int);
+extern void summary(const int, const int, int *, FILE *, const int, char *);
+extern char *tilde_filename(char [], const int);
+extern void usage_func(char *, char *);
+extern void Usage_func(const int, char *, char *);
+extern void write_ihdr_std(unsigned char *, const int, const int, const int,
+                 char *);
 
-/* Subroutine */ int saxpy_(int *n, real *sa, real *sx, int *incx, 
-	real *sy, int *incy)
-{
-
-
-    /* System generated locals */
-    /*int i__1;*/
-
-    /* Local variables */
-    static int i, m, ix, iy, mp1;
-
-
-/*     constant times a vector plus a vector.   
-       uses unrolled loop for increments equal to one.   
-       jack dongarra, linpack, 3/11/78.   
-       modified 12/3/93, array(1) declarations changed to array(*)   
-
-
-    
-   Parameter adjustments   
-       Function Body */
-#define SY(I) sy[(I)-1]
-#define SX(I) sx[(I)-1]
-
-
-    if (*n <= 0) {
-	return 0;
-    }
-    if (*sa == 0.f) {
-	return 0;
-    }
-    if (*incx == 1 && *incy == 1) {
-	goto L20;
-    }
-
-/*        code for unequal increments or equal increments   
-            not equal to 1 */
-
-    ix = 1;
-    iy = 1;
-    if (*incx < 0) {
-	ix = (-(*n) + 1) * *incx + 1;
-    }
-    if (*incy < 0) {
-	iy = (-(*n) + 1) * *incy + 1;
-    }
-    /*i__1 = *n;*/
-    for (i = 1; i <= *n; ++i) {
-	SY(iy) += *sa * SX(ix);
-	ix += *incx;
-	iy += *incy;
-/* L10: */
-    }
-    return 0;
-
-/*        code for both increments equal to 1   
-
-
-          clean-up loop */
-
-L20:
-    m = *n % 4;
-    if (m == 0) {
-	goto L40;
-    }
-    /*i__1 = m;*/
-    for (i = 1; i <= m; ++i) {
-	SY(i) += *sa * SX(i);
-/* L30: */
-    }
-    if (*n < 4) {
-	return 0;
-    }
-L40:
-    mp1 = m + 1;
-    /*i__1 = *n;*/
-    for (i = mp1; i <= *n; i += 4) {
-	SY(i) += *sa * SX(i);
-	SY(i + 1) += *sa * SX(i + 1);
-	SY(i + 2) += *sa * SX(i + 2);
-	SY(i + 3) += *sa * SX(i + 3);
-/* L50: */
-    }
-    return 0;
-} /* saxpy_ */
-
+#endif /* !_LITTLE_H */

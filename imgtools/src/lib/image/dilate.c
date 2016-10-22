@@ -81,38 +81,37 @@ of the software.
 /* ih are the width and height of the image in pixels. Both inp   */
 /* and out point to iw*ih bytes                                   */
 /******************************************************************/
- 
+
 int dilate_charimage(unsigned char *inp, unsigned char **out, const int iw,
-                 const int ih)
-{
-   int row, col, ret;
-   unsigned char *itr, *otr;
+                     const int ih) {
+    int row, col, ret;
+    unsigned char *itr, *otr;
 
-   if((ret = malloc_uchar_ret(out, iw*ih, "dilate_charimage out")))
-      return(ret);
-   itr = inp;
-   otr = *out;
- 
-   memcpy(otr, inp, iw*ih);
- 
-   /* for all pixels. set pixel if there is at least one true neighbor */
-   for ( row = 0 ; row < ih ; row++ )
-      for ( col = 0 ; col < iw ; col++ )
-      {  
-         if (!*itr)     /* pixel is already true, neighbors irrelevant */
-         {
-            /* more efficient with C's left to right evaluation of     */
-            /* conjuctions. E N S functions not executed if W is false */
-            if (get_west8 ((char *)itr, col        ) ||
-                get_east8 ((char *)itr, col, iw    ) ||
-                get_north8((char *)itr, row, iw    ) ||
-                get_south8((char *)itr, row, iw, ih))
-               *otr = 1;
-         }
-         itr++ ; otr++;
-      }  
+    if ((ret = malloc_uchar_ret(out, iw * ih, "dilate_charimage out")))
+        return (ret);
+    itr = inp;
+    otr = *out;
 
-   return(0);
+    memcpy(otr, inp, iw * ih);
+
+    /* for all pixels. set pixel if there is at least one true neighbor */
+    for (row = 0; row < ih; row++)
+        for (col = 0; col < iw; col++) {
+            if (!*itr)     /* pixel is already true, neighbors irrelevant */
+            {
+                /* more efficient with C's left to right evaluation of     */
+                /* conjuctions. E N S functions not executed if W is false */
+                if (get_west8((char *) itr, col) ||
+                    get_east8((char *) itr, col, iw) ||
+                    get_north8((char *) itr, row, iw) ||
+                    get_south8((char *) itr, row, iw, ih))
+                    *otr = 1;
+            }
+            itr++;
+            otr++;
+        }
+
+    return (0);
 }
 
 /************************************************************************/
@@ -123,34 +122,30 @@ int dilate_charimage(unsigned char *inp, unsigned char **out, const int iw,
 /* in the image. 							*/
 /************************************************************************/
 
-char get_south8(char *ptr, const int row, const int iw, const int ih)
-{
-   if (row >= ih-1) /* catch case where image is undefined southwards   */
-      return 0;     /* use plane geometry and return false.             */
+char get_south8(char *ptr, const int row, const int iw, const int ih) {
+    if (row >= ih - 1) /* catch case where image is undefined southwards   */
+        return 0;     /* use plane geometry and return false.             */
 
-      return *(ptr+iw);
+    return *(ptr + iw);
 }
 
-char get_north8(char *ptr, const int row, const int iw)
-{
-   if (row < 1)     /* catch case where image is undefined northwards   */
-      return 0;     /* use plane geometry and return false.             */
+char get_north8(char *ptr, const int row, const int iw) {
+    if (row < 1)     /* catch case where image is undefined northwards   */
+        return 0;     /* use plane geometry and return false.             */
 
-      return *(ptr-iw);
+    return *(ptr - iw);
 }
 
-char get_east8(char *ptr, const int col, const int iw)
-{
-   if (col >= iw-1) /* catch case where image is undefined eastwards    */
-      return 0;     /* use plane geometry and return false.             */
+char get_east8(char *ptr, const int col, const int iw) {
+    if (col >= iw - 1) /* catch case where image is undefined eastwards    */
+        return 0;     /* use plane geometry and return false.             */
 
-      return *(ptr+ 1);
+    return *(ptr + 1);
 }
 
-char get_west8(char *ptr, const int col)
-{
-   if (col < 1)     /* catch case where image is undefined westwards     */
-      return 0;     /* use plane geometry and return false.              */
+char get_west8(char *ptr, const int col) {
+    if (col < 1)     /* catch case where image is undefined westwards     */
+        return 0;     /* use plane geometry and return false.              */
 
-      return *(ptr- 1);
+    return *(ptr - 1);
 }

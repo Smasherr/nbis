@@ -73,7 +73,7 @@ of the software.
 #include <stdio.h>
 #include <sys/param.h>
 #include <lfs.h>
-#include <sunrast.h>
+/*#include <sunrast.h>*/
 #include <defs.h>
 
 /*************************************************************************
@@ -725,7 +725,7 @@ void dump_link_table(FILE *fpout, const int *link_table,
       Zero     - successful completion
       Negative - system error
 **************************************************************************/
-int draw_direction_map(char *oname, int *direction_map,
+/*int draw_direction_map(char *oname, int *direction_map,
                int *blkoffs, const int mw, const int mh, const int blocksize,
                unsigned char *idata, const int iw, const int ih,
                const int flag)
@@ -749,7 +749,7 @@ int draw_direction_map(char *oname, int *direction_map,
    free(tdata);
 
    return(0);
-}
+}*/
 
 /*************************************************************************
 **************************************************************************
@@ -774,7 +774,7 @@ int draw_direction_map(char *oname, int *direction_map,
       Zero     - successful completion
       Negative - system error
 **************************************************************************/
-int draw_TF_map(char *oname, int *map,
+/*int draw_TF_map(char *oname, int *map,
                 int *blkoffs, const int mw, const int mh, const int blocksize,
                 unsigned char *idata, const int iw, const int ih,
                 const int flag)
@@ -797,10 +797,10 @@ int draw_TF_map(char *oname, int *map,
    for(by = 0; by < mh; by++){
       for(bx = 0; bx < mw; bx++){
          if(map[bi])
-            /* Draw horizontal line in block. */
+            *//* Draw horizontal line in block. *//*
             tmap[bi] = 8;
          else
-            /* Don't draw any line in block. */
+            *//* Don't draw any line in block. *//*
             tmap[bi] = INVALID_DIR;
          bi++;
       }
@@ -811,10 +811,10 @@ int draw_TF_map(char *oname, int *map,
    for(by = 0; by < mh; by++){
       for(bx = 0; bx < mw; bx++){
          if(map[bi])
-            /* Draw vertical line in block. */
+            *//* Draw vertical line in block. *//*
             tmap[bi] = 0;
 
-         /* Otherwise, INVALID block already set. */
+         *//* Otherwise, INVALID block already set. *//*
 
          bi++;
       }
@@ -822,12 +822,12 @@ int draw_TF_map(char *oname, int *map,
    drawmap2(tmap, blkoffs, mw, mh, tdata, iw, ih,
              START_DIR_ANGLE, NUM_DIRECTIONS, blocksize);
 
-   /* By combining the 2 drawimaps, a plus is drawn in flagged blocks. */
+   *//* By combining the 2 drawimaps, a plus is drawn in flagged blocks. *//*
    WriteSunRaster(oname, tdata, iw, ih, 8);
 
    free(tdata);
    free(tmap);
 
    return(0);
-}
+}*/
 
