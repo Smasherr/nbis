@@ -1,8 +1,5 @@
 project(commonnbis)
 
-include_directories(include
-        ${imgtools_SOURCE_DIR}/include)
-
 set(LIB_SOURCE_FILES
         #[[src/lib/cblas/isamax.c
         src/lib/cblas/lsame.c
@@ -125,3 +122,7 @@ set(LIB_SOURCE_FILES
         src/lib/util/time.c)
 
 add_library(libcommonnbis ${LIB_SOURCE_FILES})
+target_include_directories(libcommonnbis PRIVATE
+        include)
+target_link_libraries(libcommonnbis PRIVATE
+        libihead)

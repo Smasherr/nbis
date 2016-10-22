@@ -1,8 +1,5 @@
 project(mindtct)
 
-include_directories(include
-        ${imgtools_SOURCE_DIR}/include)
-
 set(LIB_SOURCE_FILES
         src/lib/mindtct/binar.c
         src/lib/mindtct/block.c
@@ -35,8 +32,13 @@ set(LIB_SOURCE_FILES
         src/lib/mindtct/xytreps.c)
 
 add_library(libmindtct ${LIB_SOURCE_FILES})
+target_include_directories(libmindtct PRIVATE
+        include)
 
-add_executable(mindtct "src/bin/mindtct/mindtct.c")
+add_executable(mindtct src/bin/mindtct/mindtct.c)
+target_include_directories(mindtct PRIVATE
+        include)
 target_link_libraries(mindtct
+        PRIVATE
         libmindtct
         libimage)

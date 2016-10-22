@@ -1,8 +1,5 @@
 project(imgtools)
 
-include_directories(include
-        ${ijg_SOURCE_DIR}/src/lib/jpegb)
-
 set(IHEAD_SOURCE_FILES
         src/lib/ihead/getcomp.c
         src/lib/ihead/getnset.c
@@ -64,15 +61,21 @@ set(WSQ_SOURCE_FILES
         src/lib/wsq/util.c)
 
 add_library(libihead ${IHEAD_SOURCE_FILES})
-target_link_libraries(libihead
+target_include_directories(libihead PRIVATE
+        include)
+target_link_libraries(libihead PRIVATE
         libcommonnbis)
 
 add_library(libjpegl ${JPEGL_SOURCE_FILES})
-target_link_libraries(libjpegl
+target_include_directories(libjpegl PRIVATE
+        include)
+target_link_libraries(libjpegl PRIVATE
         libcommonnbis)
 
 add_library(libwsq ${WSQ_SOURCE_FILES})
-target_link_libraries(libwsq
+target_include_directories(libwsq PRIVATE
+        include)
+target_link_libraries(libwsq PRIVATE
         libcommonnbis
         libjpegl)
 
@@ -84,11 +87,13 @@ extern void print_usage(char *);
 
 defined in include/parsargs.h]]
 add_library(libimage STATIC ${IMAGE_SOURCE_FILES})
-
-#[[needed to inherit ijg interface properties
-and to pass them through]]
+target_include_directories(libimage PUBLIC
+        include)
 target_link_libraries(libimage
+        PRIVATE
         libcommonnbis
         libihead
         libwsq
+        libjpegl
+        PUBLIC
         libijg)

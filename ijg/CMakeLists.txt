@@ -1,8 +1,5 @@
 project(ijg)
 
-include_directories(${imgtools_SOURCE_DIR}/include
-        src/lib/jpegb)
-
 set(LIB_SOURCE_FILES
         #[[src/lib/jpegb/ansi2knr.c]]
         src/lib/jpegb/cdjpeg.c
@@ -83,8 +80,11 @@ set(LIB_SOURCE_FILES
         src/lib/jpegb/wrtarga.c)
 
 add_library(libijg ${LIB_SOURCE_FILES})
-target_include_directories(libijg INTERFACE
+target_include_directories(libijg
+        PRIVATE
+        ${imgtools_SOURCE_DIR}/include
+        PUBLIC
         src/lib/jpegb)
-target_link_libraries(libijg
+target_link_libraries(libijg PRIVATE
         libcommonnbis
         libjpegl)
